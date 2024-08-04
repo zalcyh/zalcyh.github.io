@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Zal Loves Cyh  2024七夕节快乐鸭宝宝</title>
+
+	<link rel="icon" href="./static/img/favicon.ico">
+
+	<meta name="description" content="nothing.....">
+
+	<meta name="keywords" content="Fish">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="./static/css/style.css">
+
+	<link rel="stylesheet" href="./static/css/root.css">
+
+</head>
+
+    <div id="xf-MusicPlayer" data-cdnName="https://player.xfyun.club/js" data-songList="7415155013"data-fadeOutAutoplay data-memory="1" data-random="true" data-randomSongList="1"></div>
+	
+  <script src="https://player.xfyun.club/js/xf-MusicPlayer/js/xf-MusicPlayer.min.js"></script>
+	
+  <script src="https://player.xfyun.club/js/yinghua.js"></script>
+
+	
+<body>
+
+   <script>
+
+window.alert("七夕节快乐 宝宝")
+
+   </script>
+
+
+    <script>
+    var leaveTitle = 'w(ﾟДﾟ)w 不要走！再看看嘛！';
+
+    var backTitle = '♪(^∇^*)欢迎肥来！';
+
+    var OriginTitile = "Zal Loves Cyh  2024七夕节快乐鸭宝宝"
+
+    var titleTime
+
+    document.addEventListener('visibilitychange', function () {
+
+        if (document.hidden) {
+
+            //离开当前页面时标签显示内容
+
+            document.title = leaveTitle
+
+            clearTimeout(titleTime)
+
+        } else {
+
+            //返回当前页面时标签显示内容
+
+            document.title = backTitle + OriginTitile
+
+            //两秒后变回正常标题
+            titleTime = setTimeout(function () {
+
+                document.title = OriginTitile
+
+            }, 2000)
+
+        }
+
+    })
+
+</script>
+
+
+<script>
+        function clickEffect() {
+            let balls = [];
+            let longPressed = false;
+            let longPress;
+            let multiplier = 0;
+            let width, height;
+            let origin;
+            let normal;
+            let ctx;
+            const colours = ["#F73859", "#14FFEC", "#00E0FF", "#FF99FE", "#FAF15D"];
+            const canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+            canvas.setAttribute("style", "width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none;");
+            const pointer = document.createElement("span");
+            pointer.classList.add("pointer");
+            document.body.appendChild(pointer);
+
+            if (canvas.getContext && window.addEventListener) {
+                ctx = canvas.getContext("2d");
+                updateSize();
+                window.addEventListener('resize', updateSize, false);
+                loop();
+                window.addEventListener("mousedown", function (e) {
+                    pushBalls(randBetween(10, 20), e.clientX, e.clientY);
+                    document.body.classList.add("is-pressed");
+                    longPress = setTimeout(function () {
+                        document.body.classList.add("is-longpress");
+                        longPressed = true;
+                    }, 500);
+                }, false);
+                window.addEventListener("mouseup", function (e) {
+                    clearInterval(longPress);
+                    if (longPressed == true) {
+                        document.body.classList.remove("is-longpress");
+                        pushBalls(randBetween(50 + Math.ceil(multiplier), 100 + Math.ceil(multiplier)), e.clientX, e.clientY);
+                        longPressed = false;
+                    }
+                    document.body.classList.remove("is-pressed");
+                }, false);
+                window.addEventListener("mousemove", function (e) {
+                    let x = e.clientX;
+                    let y = e.clientY;
+                    pointer.style.top = y + "px";
+                    pointer.style.left = x + "px";
+                }, false);
+            } else {
+                console.log("canvas or addEventListener is unsupported!");
+            }
+
+            function updateSize() {
+                canvas.width = window.innerWidth * 2;
+                canvas.height = window.innerHeight * 2;
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
+                ctx.scale(2, 2);
+                width = (canvas.width = window.innerWidth);
+                height = (canvas.height = window.innerHeight);
+                origin = {
+                    x: width / 2,
+                    y: height / 2
+                };
+                normal = {
+                    x: width / 2,
+                    y: height / 2
+                };
+            }
+            class Ball {
+                constructor(x = origin.x, y = origin.y) {
+                    this.x = x;
+                    this.y = y;
+                    this.angle = Math.PI * 2 * Math.random();
+                    if (longPressed == true) {
+                        this.multiplier = randBetween(14 + multiplier, 15 + multiplier);
+                    } else {
+                        this.multiplier = randBetween(6, 12);
+                    }
+                    this.vx = (this.multiplier + Math.random() * 0.5) * Math.cos(this.angle);
+                    this.vy = (this.multiplier + Math.random() * 0.5) * Math.sin(this.angle);
+                    this.r = randBetween(8, 12) + 3 * Math.random();
+                    this.color = colours[Math.floor(Math.random() * colours.length)];
+                }
+                update() {
+                    this.x += this.vx - normal.x;
+                    this.y += this.vy - normal.y;
+                    normal.x = -2 / window.innerWidth * Math.sin(this.angle);
+                    normal.y = -2 / window.innerHeight * Math.cos(this.angle);
+                    this.r -= 0.3;
+                    this.vx *= 0.9;
+                    this.vy *= 0.9;
+                }
+            }
+
+            function pushBalls(count = 1, x = origin.x, y = origin.y) {
+                for (let i = 0; i < count; i++) {
+                    balls.push(new Ball(x, y));
+                }
+            }
+
+            function randBetween(min, max) {
+                return Math.floor(Math.random() * max) + min;
+            }
+
+            function loop() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < balls.length; i++) {
+                    let b = balls[i];
+                    if (b.r < 0) continue;
+                    ctx.fillStyle = b.color;
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2, false);
+                    ctx.fill();
+                    b.update();
+                }
+                if (longPressed == true) {
+                    multiplier += 0.2;
+                } else if (!longPressed && multiplier >= 0) {
+                    multiplier -= 0.4;
+                }
+                removeBall();
+                requestAnimationFrame(loop);
+            }
+
+            function removeBall() {
+                for (let i = 0; i < balls.length; i++) {
+                    let b = balls[i];
+                    if (b.x + b.r < 0 || b.x - b.r > width || b.y + b.r < 0 || b.y - b.r > height || b.r < 0) {
+                        balls.splice(i, 1);
+                    }
+                }
+            }
+        }
+        clickEffect();
+    </script>
+
+   <script>
+        (function (name, factory) {
+            if (typeof window === "object") {
+                window[name] = factory();
+            }
+        })("Ribbons", function () {
+            var _w = window, _b = document.body, _d = document.documentElement;
+            var random = function () {
+                if (arguments.length === 1) {
+                    if (Array.isArray(arguments[0])) {
+                        var index = Math.round(random(0, arguments[0].length - 1));
+                        return arguments[0][index];
+                    }
+                    return random(0, arguments[0]);
+                } else if (arguments.length === 2) {
+                    return Math.random() * (arguments[1] - arguments[0]) + arguments[0];
+                }
+                return 0;
+            };
+            var screenInfo = function (e) {
+                var width = Math.max(0, _w.innerWidth || _d.clientWidth || _b.clientWidth || 0),
+                    height = Math.max(0, _w.innerHeight || _d.clientHeight || _b.clientHeight || 0),
+                    scrollx = Math.max(0, _w.pageXOffset || _d.scrollLeft || _b.scrollLeft || 0) - (_d.clientLeft || 0),
+                    scrolly = Math.max(0, _w.pageYOffset || _d.scrollTop || _b.scrollTop || 0) - (_d.clientTop || 0);
+                return {
+                    width: width,
+                    height: height,
+                    ratio: width / height,
+                    centerx: width / 2,
+                    centery: height / 2,
+                    scrollx: scrollx,
+                    scrolly: scrolly
+                };
+            };
+            var mouseInfo = function (e) {
+                var screen = screenInfo(e), mousex = e ? Math.max(0, e.pageX || e.clientX || 0) : 0,
+                    mousey = e ? Math.max(0, e.pageY || e.clientY || 0) : 0;
+                return {
+                    mousex: mousex,
+                    mousey: mousey,
+                    centerx: mousex - screen.width / 2,
+                    centery: mousey - screen.height / 2
+                };
+            };
+            var Point = function (x, y) {
+                this.x = 0;
+                this.y = 0;
+                this.set(x, y);
+            };
+            Point.prototype = {
+                constructor: Point, set: function (x, y) {
+                    this.x = x || 0;
+                    this.y = y || 0;
+                }, copy: function (point) {
+                    this.x = point.x || 0;
+                    this.y = point.y || 0;
+                    return this;
+                }, multiply: function (x, y) {
+                    this.x *= x || 1;
+                    this.y *= y || 1;
+                    return this;
+                }, divide: function (x, y) {
+                    this.x /= x || 1;
+                    this.y /= y || 1;
+                    return this;
+                }, add: function (x, y) {
+                    this.x += x || 0;
+                    this.y += y || 0;
+                    return this;
+                }, subtract: function (x, y) {
+                    this.x -= x || 0;
+                    this.y -= y || 0;
+                    return this;
+                }, clampX: function (min, max) {
+                    this.x = Math.max(min, Math.min(this.x, max));
+                    return this;
+                }, clampY: function (min, max) {
+                    this.y = Math.max(min, Math.min(this.y, max));
+                    return this;
+                }, flipX: function () {
+                    this.x *= -1;
+                    return this;
+                }, flipY: function () {
+                    this.y *= -1;
+                    return this;
+                }
+            };
+            var Factory = function (options) {
+                this._canvas = null;
+                this._context = null;
+                this._sto = null;
+                this._width = 0;
+                this._height = 0;
+                this._scroll = 0;
+                this._ribbons = [];
+                this._options = {
+                    colorSaturation: "80%",
+                    colorBrightness: "60%",
+                    colorAlpha: 0.65,
+                    colorCycleSpeed: 8,
+                    verticalPosition: "center",
+                    horizontalSpeed: 200,
+                    ribbonCount: 4,
+                    strokeSize: 0,
+                    parallaxAmount: -0.5,
+                    animateSections: true
+                };
+                this._onDraw = this._onDraw.bind(this);
+                this._onResize = this._onResize.bind(this);
+                this._onScroll = this._onScroll.bind(this);
+                this.setOptions(options);
+                this.init();
+            };
+            Factory.prototype = {
+                constructor: Factory, setOptions: function (options) {
+                    if (typeof options === "object") {
+                        for (var key in options) {
+                            if (options.hasOwnProperty(key)) {
+                                this._options[key] = options[key];
+                            }
+                        }
+                    }
+                }, init: function () {
+                    try {
+                        this._canvas = document.createElement("canvas");
+                        this._canvas.style["display"] = "block";
+                        this._canvas.style["position"] = "fixed";
+                        this._canvas.style["margin"] = "0";
+                        this._canvas.style["padding"] = "0";
+                        this._canvas.style["border"] = "0";
+                        this._canvas.style["outline"] = "0";
+                        this._canvas.style["left"] = "0";
+                        this._canvas.style["top"] = "0";
+                        this._canvas.style["width"] = "100%";
+                        this._canvas.style["height"] = "100%";
+                        this._canvas.style["z-index"] = "-1";
+                        // this._canvas.style["background-color"] = "#1f1f1f";
+                        this._canvas.id = "bgCanvas";
+                        this._onResize();
+                        this._context = this._canvas.getContext("2d");
+                        this._context.clearRect(0, 0, this._width, this._height);
+                        this._context.globalAlpha = this._options.colorAlpha;
+                        // 这里可以设置是否随着窗口的滚动而滚动
+                        window.addEventListener("resize", this._onResize);
+                        window.addEventListener("scroll", this._onScroll);
+                        // 这里设置添加的位置
+                        var body_ = document.getElementsByTagName('body')[0];
+                        body_.appendChild(this._canvas);
+                    } catch (e) {
+                        console.warn("Canvas Context Error: " + e.toString());
+                        return;
+                    }
+                    this._onDraw();
+                }, addRibbon: function () {
+                    var dir = Math.round(random(1, 9)) > 5 ? "right" : "left", stop = 1000, hide = 200, min = 0 - hide,
+                        max = this._width + hide, movex = 0, movey = 0, startx = dir === "right" ? min : max,
+                        starty = Math.round(random(0, this._height));
+                    if (/^(top|min)$/i.test(this._options.verticalPosition)) {
+                        starty = 0 + hide;
+                    } else if (/^(middle|center)$/i.test(this._options.verticalPosition)) {
+                        starty = this._height / 2;
+                    } else if (/^(bottom|max)$/i.test(this._options.verticalPosition)) {
+                        starty = this._height - hide;
+                    }
+                    var ribbon = [], point1 = new Point(startx, starty), point2 = new Point(startx, starty), point3 = null,
+                        color = Math.round(random(0, 360)), delay = 0;
+                    while (true) {
+                        if (stop <= 0) break;
+                        stop--;
+                        movex = Math.round((Math.random() * 1 - 0.2) * this._options.horizontalSpeed);
+                        movey = Math.round((Math.random() * 1 - 0.5) * (this._height * 0.25));
+                        point3 = new Point();
+                        point3.copy(point2);
+                        if (dir === "right") {
+                            point3.add(movex, movey);
+                            if (point2.x >= max) break;
+                        } else if (dir === "left") {
+                            point3.subtract(movex, movey);
+                            if (point2.x <= min) break;
+                        }
+                        ribbon.push({
+                            point1: new Point(point1.x, point1.y),
+                            point2: new Point(point2.x, point2.y),
+                            point3: point3,
+                            color: color,
+                            delay: delay,
+                            dir: dir,
+                            alpha: 0,
+                            phase: 0
+                        });
+                        point1.copy(point2);
+                        point2.copy(point3);
+                        delay += 4;
+                        color += this._options.colorCycleSpeed;
+                    }
+                    this._ribbons.push(ribbon);
+                }, _drawRibbonSection: function (section) {
+                    if (section) {
+                        if (section.phase >= 1 && section.alpha <= 0) {
+                            return true;
+                        }
+                        if (section.delay <= 0) {
+                            section.phase += 0.02;
+                            section.alpha = Math.sin(section.phase) * 1;
+                            section.alpha = section.alpha <= 0 ? 0 : section.alpha;
+                            section.alpha = section.alpha >= 1 ? 1 : section.alpha;
+                            if (this._options.animateSections) {
+                                var mod = Math.sin(1 + section.phase * Math.PI / 2) * 0.1;
+                                if (section.dir === "right") {
+                                    section.point1.add(mod, 0);
+                                    section.point2.add(mod, 0);
+                                    section.point3.add(mod, 0);
+                                } else {
+                                    section.point1.subtract(mod, 0);
+                                    section.point2.subtract(mod, 0);
+                                    section.point3.subtract(mod, 0);
+                                }
+                                section.point1.add(0, mod);
+                                section.point2.add(0, mod);
+                                section.point3.add(0, mod);
+                            }
+                        } else {
+                            section.delay -= 0.5;
+                        }
+                        var s = this._options.colorSaturation, l = this._options.colorBrightness,
+                            c = "hsla(" + section.color + ", " + s + ", " + l + ", " + section.alpha + " )";
+                        this._context.save();
+                        if (this._options.parallaxAmount !== 0) {
+                            this._context.translate(0, this._scroll * this._options.parallaxAmount);
+                        }
+                        this._context.beginPath();
+                        this._context.moveTo(section.point1.x, section.point1.y);
+                        this._context.lineTo(section.point2.x, section.point2.y);
+                        this._context.lineTo(section.point3.x, section.point3.y);
+                        this._context.fillStyle = c;
+                        this._context.fill();
+                        if (this._options.strokeSize > 0) {
+                            this._context.lineWidth = this._options.strokeSize;
+                            this._context.strokeStyle = c;
+                            this._context.lineCap = "round";
+                            this._context.stroke();
+                        }
+                        this._context.restore();
+                    }
+                    return false;
+                }, _onDraw: function () {
+                    for (var i = 0, t = this._ribbons.length; i < t; ++i) {
+                        if (!this._ribbons[i]) {
+                            this._ribbons.splice(i, 1);
+                        }
+                    }
+                    this._context.clearRect(0, 0, this._width, this._height);
+                    for (var a = 0; a < this._ribbons.length; ++a) {
+                        var ribbon = this._ribbons[a], numSections = ribbon.length, numDone = 0;
+                        for (var b = 0; b < numSections; ++b) {
+                            if (this._drawRibbonSection(ribbon[b])) {
+                                numDone++;
+                            }
+                        }
+                        if (numDone >= numSections) {
+                            this._ribbons[a] = null;
+                        }
+                    }
+                    if (this._ribbons.length < this._options.ribbonCount) {
+                        this.addRibbon();
+                    }
+                    requestAnimationFrame(this._onDraw);
+                }, _onResize: function (e) {
+                    var screen = screenInfo(e);
+                    this._width = screen.width;
+                    this._height = screen.height;
+                    if (this._canvas) {
+                        this._canvas.width = this._width;
+                        this._canvas.height = this._height;
+                        if (this._context) {
+                            this._context.globalAlpha = this._options.colorAlpha;
+                        }
+                    }
+                }, _onScroll: function (e) {
+                    var screen = screenInfo(e);
+                    this._scroll = screen.scrolly;
+                }
+            };
+            return Factory;
+        });
+        new Ribbons();
+    </script>
+
+	<div id="Fish-loading">
+
+	 <div id="Fish-loading-center"></div>
+
+	  <div class="Fish-filter"></div>
+
+	   <div class="Fish-main">
+
+	    <div class="left-div left-des">
+
+	     <div class="left-des-item">
+
+            <svg t="1705773709627" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1478"><?xml version="1.0" encoding="utf-8"?><svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5.50063L11.4596 6.02073C11.463 6.02421 11.4664 6.02765 11.4698 6.03106L12 5.50063ZM8.96173 18.9109L8.49742 19.4999L8.96173 18.9109ZM15.0383 18.9109L14.574 18.3219L15.0383 18.9109ZM7.00061 16.4209C6.68078 16.1577 6.20813 16.2036 5.94491 16.5234C5.68169 16.8432 5.72758 17.3159 6.04741 17.5791L7.00061 16.4209ZM2.34199 13.4115C2.54074 13.7749 2.99647 13.9084 3.35988 13.7096C3.7233 13.5108 3.85677 13.0551 3.65801 12.6917L2.34199 13.4115ZM13.4698 8.03034C13.7627 8.32318 14.2376 8.32309 14.5304 8.03014C14.8233 7.7372 14.8232 7.26232 14.5302 6.96948L13.4698 8.03034ZM2.75 9.1371C2.75 6.98623 3.96537 5.18252 5.62436 4.42419C7.23607 3.68748 9.40166 3.88258 11.4596 6.02073L12.5404 4.98053C10.0985 2.44352 7.26409 2.02539 5.00076 3.05996C2.78471 4.07292 1.25 6.42503 1.25 9.1371H2.75ZM8.49742 19.4999C9.00965 19.9037 9.55955 20.3343 10.1168 20.6599C10.6739 20.9854 11.3096 21.25 12 21.25V19.75C11.6904 19.75 11.3261 19.6293 10.8736 19.3648C10.4213 19.1005 9.95208 18.7366 9.42605 18.3219L8.49742 19.4999ZM15.5026 19.4999C16.9292 18.3752 18.7528 17.0866 20.1833 15.4758C21.6395 13.8361 22.75 11.8026 22.75 9.1371H21.25C21.25 11.3345 20.3508 13.0282 19.0617 14.4798C17.7469 15.9603 16.0896 17.1271 14.574 18.3219L15.5026 19.4999ZM22.75 9.1371C22.75 6.42503 21.2153 4.07292 18.9992 3.05996C16.7359 2.02539 13.9015 2.44352 11.4596 4.98053L12.5404 6.02073C14.5983 3.88258 16.7639 3.68748 18.3756 4.42419C20.0346 5.18252 21.25 6.98623 21.25 9.1371H22.75ZM14.574 18.3219C14.0479 18.7366 13.5787 19.1005 13.1264 19.3648C12.6739 19.6293 12.3096 19.75 12 19.75V21.25C12.6904 21.25 13.3261 20.9854 13.8832 20.6599C14.4405 20.3343 14.9903 19.9037 15.5026 19.4999L14.574 18.3219ZM9.42605 18.3219C8.63014 17.6945 7.82129 17.0963 7.00061 16.4209L6.04741 17.5791C6.87768 18.2624 7.75472 18.9144 8.49742 19.4999L9.42605 18.3219ZM3.65801 12.6917C3.0968 11.6656 2.75 10.5033 2.75 9.1371H1.25C1.25 10.7746 1.66995 12.1827 2.34199 13.4115L3.65801 12.6917ZM11.4698 6.03106L13.4698 8.03034L14.5302 6.96948L12.5302 4.97021L11.4698 6.03106Z" fill="#1C274C"/></svg>
+  
+<script>
+
+<i class="fa fa-cog fa-spin fa-1x fa-fw"></i><span>我们已经相爱了<span id="days"
+
+            style="font-weight:800; color:#ED712E;">0</span>Days</span>
+
+    <script>
+
+        let s1 = '2023-11-9';//设置为你的建站时间
+
+        s1 = new Date(s1.replace(/-/g, "/"));
+
+        s2 = new Date();
+
+        let days = s2.getTime() - s1.getTime();
+
+        let number_of_days = parseInt(days / (1000 * 60 * 60 * 24));
+
+        document.getElementById('days').innerHTML = number_of_days;
+
+</script>
+
+</div>
+
+<div class="left-div left-tag">
+
+<div class="left-tag-item">爱美</div>
+
+<div class="left-tag-item">高冷</div>
+
+<div class="left-tag-item">温柔</div>
+
+<div class="left-tag-item">清醒</div>
+
+<div class="left-div left-time">
+
+<ul id="line">
+                                          
+
+                                           <li>
+						<div class="focus"></div>
+						<div>未完待续噢 宝宝</div>
+                                                <div>从下至上看噢</div>
+					 </li>
+
+                                          <li>
+						<div class="focus"></div>
+						<div>今天你把初吻给了我 于是我下定决心给你表白 你答应啦！！</div>
+						<div>2023/11/9  晴</div>
+					 </li>
+                                           
+					  <li>
+						<div class="focus"></div>
+						<div>要换座位了 你最后还要哭了 你还送了我两个发卡耶</div>
+						<div>2023/11/8  天气未知</div>
+					 </li>
+
+					  <li>
+						<div class="focus"></div>
+						<div>今天超级激动 晚自习我牵到了你的手 也是我第一次碰女孩子的手</div>
+						<div>2023/11/7  阴 小雨</div>
+					 </li>
+
+                                          <li>
+						<div class="focus"></div>
+						<div>打破那层礼貌的隔膜 成为无话不谈的好朋友</div>
+						<div>2023/11/5  晴</div>
+					</li>
+
+					 <li>
+						<div class="focus"></div>
+						<div>被罚扫化学实验室 一起去一楼倒垃圾</div>
+						<div>2023/11/2 晴</div>
+					</li>
+					
+                                         <li>
+						<div class="focus"></div>
+						<div>有意看你跑步 差点被我朋友戳穿我喜欢你</div>
+						<div>2023/10/27 晴</div>
+					</li>
+
+					<li>
+						<div class="focus"></div>
+						<div>你第一次陪我玩游戏捏 越来越喜欢你啦</div>
+						<div>2023/10/15 晴</div>
+					</li>
+
+					<li>
+						<div class="focus"></div>
+						<div>和你做上同桌啦</div>
+						<div>2023/9/27 晴</div>
+					</li>
+
+					<li>
+						<div class="focus"></div>
+						<div>从一个梦开始喜欢你</div>
+						<div>2023/9/16 阴</div>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="Fish-right">
+
+			<header>
+
+			<div class="welcome">  Love
+
+                              <span class="gradientText">ZAL </span>
+				
+				</div>
+
+				<div class="description">💕<span class="purpleText">Zal Loves Cyh</span> so deeply.
+
+				</div>
+
+				<div class="description">💞I Love You <span class="purpleText textBackground">not for</span>who you are
+
+                             <span class="purpleText textBackground"> but for </span> who I am with you. </div>
+
+               
+				</a><a class="switch" href="javascript:void(0)">
+
+						<div class="onoffswitch">
+
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"id="myonoffswitch"checked>
+
+							<label class="onoffswitch-label" for="myonoffswitch">
+
+								<span class="onoffswitch-inner"></span>
+
+								<span class="onoffswitch-switch"></span>
+
+							</label>
+
+						</div>
+
+					</a>
+
+				</div>
+
+				<div class="tanChiShe">
+
+					<img id="tanChiShe" src="./static/svg/snake-Light.svg" alt="">
+
+				</div>
+
+			</header>
+
+                          
+                              
+                        <content>
+
+				<div class="title"><svg t="1705257422086" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1891" >
+                        <path d="M629.333333 202.666667v213.333333h277.333334v448h-512v-213.333333h-277.333334v-448h512z m213.333334 277.333333h-213.333334v170.666667h-170.666666v149.333333h384v-320z m-277.333334-213.333333h-384v320h213.333334v-170.666667h170.666666v-149.333333z m0 213.333333h-106.666666v106.666667h106.666666v-106.666667z"  p-id="1892"></path></svg>
+
+                                 Games</div>
+
+				<div class="projectList"><a class="projectItem a" target="_blank" href="fruitninja/index.html">
+
+						<div class="projectItemLeft">
+
+							<h1>水果忍者游戏捏</h1>
+
+							<p>🤗手机可能玩不了捏</p>
+
+				</div>
+
+				<div class="projectItemRight">
+
+	                         </div>
+
+
+				</a><a class="projectItem a" target="_blank" href="flytext/index.html">
+
+						<div class="projectItemLeft">
+
+							<h1>飞行的文字</h1>
+
+							<p>😶‍🌫️物理效果挺逼真的</p>
+
+				</div>
+
+				<div class="projectItemRight">
+
+	                         </div>
+
+
+                                 </a></div>
+
+
+		<footer>welcome</footer>
+
+		<div class="tc">
+
+			<div onclick="" class="tc-main">
+
+				<img class="tc-img" src="" alt="" srcset="">
+
+			</div>
+
+	
+		</div>
+
+	</body>
+
+<script src="./static/js/script.js"> </script>
+	
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+
+<script>LA.init({ id: "KFqltKSkJgQTGD9l", ck: "KFqltKSkJgQTGD9l" })</script>
+
+
+</html>
+	
